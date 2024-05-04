@@ -1,3 +1,2 @@
-extends CharacterBody2D
+extends Bot
 
-const SPEED = 300.0

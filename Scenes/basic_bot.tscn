@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://de222kqx464e4"]
+
+[ext_resource type="Script" path="res://Scripts/BasicBot.gd" id="1_hwlhr"]
+[ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="2_03byx"]
+[ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_gyekh"]
+[ext_resource type="Script" path="res://Scripts/State Machine/BotIdle.gd" id="4_xyph5"]
+[ext_resource type="Script" path="res://Scripts/State Machine/BotMove.gd" id="5_iexhn"]
+[ext_resource type="Script" path="res://Scripts/State Machine/MelleAttack.gd" id="6_33bmy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ko81"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_87vcl"]
+radius = 129.016
+
+[node name="BasicBot" type="CharacterBody2D"]
+z_index = 4
+y_sort_enabled = true
+collision_layer = 0
+script = ExtResource("1_hwlhr")
+movement_speed = 250
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_03byx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3ko81")
+
+[node name="State Machine" type="Node" parent="."]
+script = ExtResource("3_gyekh")
+initial_state = NodePath("BotMove")
+
+[node name="BotIdle" type="Node" parent="State Machine"]
+script = ExtResource("4_xyph5")
+
+[node name="BotMove" type="Node" parent="State Machine"]
+script = ExtResource("5_iexhn")
+
+[node name="Timer" type="Timer" parent="State Machine/BotMove"]
+wait_time = 0.2
+one_shot = true
+
+[node name="MelleAttack" type="Node" parent="State Machine"]
+script = ExtResource("6_33bmy")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+debug_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_87vcl")
+
+[connection signal="timeout" from="State Machine/BotMove/Timer" to="State Machine/BotMove" method="_on_timer_timeout"]
+[connection signal="target_reached" from="NavigationAgent2D" to="State Machine/BotIdle" method="_on_navigation_agent_2d_target_reached"]
+[connection signal="body_entered" from="Area2D" to="State Machine/MelleAttack" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="State Machine/MelleAttack" method="_on_area_2d_body_exited"]

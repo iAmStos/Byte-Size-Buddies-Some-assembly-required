@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d17lqx7vdf4i"]
+[gd_scene load_steps=7 format=3 uid="uid://d17lqx7vdf4i"]
 
 [ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="1_0c7t5"]
 [ext_resource type="PackedScene" uid="uid://dvwts518nrsrn" path="res://Scenes/player.tscn" id="1_hgngq"]
-[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_ncg0p"]
 [ext_resource type="PackedScene" uid="uid://de222kqx464e4" path="res://Scenes/basic_bot.tscn" id="2_smqct"]
-[ext_resource type="Script" path="res://Scripts/PlayerBotManager.gd" id="3_m8qmc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6wv0m"]
 vertices = PackedVector2Array(64, 64, -64, 64, -64, -64, 64, -64)
@@ -24,50 +22,27 @@ tile_size = Vector2i(128, 128)
 navigation_layer_0/layers = 1
 sources/1 = SubResource("TileSetAtlasSource_crh25")
 
-[node name="GameManager" type="Node2D"]
-script = ExtResource("1_ncg0p")
+[node name="Game Manager" type="Node2D"]
 
-[node name="UserInterface" type="Control" parent="."]
+[node name="User Interface" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="UserInterface"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_hgngq")]
+HEALTH = null
+controller = null
+
+[node name="BasicBot" parent="." instance=ExtResource("2_smqct")]
+position = Vector2(-84, -41)
+controller = NodePath("../Player")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_svju7")
 format = 2
 layer_0/modulate = Color(0, 0, 0, 1)
 layer_0/tile_data = PackedInt32Array(-65536, 1, 0, -1, 1, 0, -2, 1, 0, 65535, 1, 0, 0, 1, 0, -65539, 1, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 1, 0, -131068, 1, 0, -65532, 1, 0, -65531, 1, 0, 5, 1, 0, 65541, 1, 0, 65540, 1, 0, 131076, 1, 0, 131075, 1, 0, 131074, 1, 0, 131073, 1, 0, 196609, 1, 0, 131072, 1, 0, 196607, 1, 0, 262143, 1, 0, 262142, 1, 0, 262141, 1, 0, 262140, 1, 0, 196603, 1, 0, 131067, 1, 0, 131066, 1, 0, 65530, 1, 0, -5, 1, 0, -65541, 1, 0, -65540, 1, 0, -131077, 1, 0, -131076, 1, 0, -196612, 1, 0, -262148, 1, 0, -262147, 1, 0, -262146, 1, 0, -262145, 1, 0, -196609, 1, 0, -196610, 1, 0, -131074, 1, 0, -131075, 1, 0, -131073, 1, 0, -196611, 1, 0, -196608, 1, 0, -196607, 1, 0, -196606, 1, 0, -196605, 1, 0, -196604, 1, 0, -196603, 1, 0, -196602, 1, 0, -262138, 1, 0, -262139, 1, 0, -262140, 1, 0, -262141, 1, 0, -262142, 1, 0, -262143, 1, 0, -262144, 1, 0, -327678, 1, 0, 65531, 1, 0, -6, 1, 0, -65542, 1, 0, 196604, 1, 0, 196608, 1, 0, 196610, 1, 0, 196611, 1, 0, 4, 1, 0, -131067, 1, 0, 6, 1, 0, -65530, 1, 0, -131066, 1, 0, -131065, 1, 0, -131064, 1, 0, -196600, 1, 0, -196601, 1, 0, -262137, 1, 0, -262136, 1, 0, -327673, 1, 0, -327674, 1, 0, -327675, 1, 0, -327676, 1, 0)
-
-[node name="PlayerBotManager" type="Node2D" parent="."]
-script = ExtResource("3_m8qmc")
-player_node = NodePath("../Player")
-
-[node name="BasicBot" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot2" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot3" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot4" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot5" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
