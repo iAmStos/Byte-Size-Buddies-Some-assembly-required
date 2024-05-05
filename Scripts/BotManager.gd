@@ -1,7 +1,6 @@
 extends Node2D
 
-var player_bots = []
-@export var player_node : NodePath = ""
+var mine_bots = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +13,6 @@ func _process(_delta):
 
 #called on first frame and when a bot dies.
 func refresh():
-	player_bots = get_children()
-	for bot in player_bots:
-		bot.controller = "../../Player"
-		bot.player_controlled = true
+	mine_bots = get_children()
+	for bot in mine_bots:
+		bot.controller = "../.."

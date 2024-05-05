@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpc4an48b4j5w"]
+
+[ext_resource type="Script" path="res://Scripts/MineManager.gd" id="1_x1l0x"]
+[ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="2_jhxnf"]
+[ext_resource type="Script" path="res://Scripts/BotManager.gd" id="3_gmkw6"]
+[ext_resource type="PackedScene" uid="uid://de222kqx464e4" path="res://Scenes/basic_bot.tscn" id="3_xdn7k"]
+
+[node name="Mine" type="Node2D"]
+script = ExtResource("1_x1l0x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jhxnf")
+
+[node name="BotManager" type="Node2D" parent="."]
+script = ExtResource("3_gmkw6")
+
+[node name="BasicBot" parent="BotManager" instance=ExtResource("3_xdn7k")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

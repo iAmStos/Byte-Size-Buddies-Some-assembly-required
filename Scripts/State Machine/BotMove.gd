@@ -6,8 +6,9 @@ var target_position = Vector2.ZERO
 
 # Virtual function. Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:
-	if _event.is_action_pressed("click"):
-		state_machine.transition_to("BotMove")
+	if owner.player_controlled:
+		if _event.is_action_pressed("click"):
+			state_machine.transition_to("BotMove")
 
 # Virtual function. Corresponds to the `_process()` callback.
 func update(_delta: float) -> void:
@@ -38,6 +39,6 @@ func retarget():
 	#get target position for Nav Mesh Agent
 	target_position = owner.get_node(owner.controller).get_node("NavigationAgent2D").target_position
 	# Add a random radius around the target position so it does not land too close to the controller
-	var random_radius = randi_range(50, 100)
+	var random_radius = randi_range(100, 150)
 	target_position += Vector2(randi_range(1,-1), randi_range(1,-1)) * random_radius
 	nav_agent.target_position = target_position

@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvwts518nrsrn"]
+[gd_scene load_steps=9 format=3 uid="uid://dvwts518nrsrn"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerStats.gd" id="1_p1q22"]
 [ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="2_gw468"]
 [ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_3unc1"]
 [ext_resource type="Script" path="res://Scripts/State Machine/PlayerIdle.gd" id="4_nctb5"]
 [ext_resource type="Script" path="res://Scripts/State Machine/PlayerMove.gd" id="5_jgle2"]
+[ext_resource type="Texture2D" uid="uid://bub7pnsf7l7ge" path="res://Sprites/red_button00.png" id="6_ukan1"]
+[ext_resource type="Texture2D" uid="uid://d2u1tsw3crd5j" path="res://Sprites/green_button00.png" id="7_26y6m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ko81"]
 size = Vector2(66, 66)
@@ -18,7 +20,17 @@ melle_damage = 0
 attack_speed = 0.0
 controller = NodePath(".")
 
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -37.0
+offset_top = -58.0
+offset_right = 153.0
+offset_bottom = -13.0
+scale = Vector2(0.4, 0.4)
+texture_under = ExtResource("6_ukan1")
+texture_progress = ExtResource("7_26y6m")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gw468")
 

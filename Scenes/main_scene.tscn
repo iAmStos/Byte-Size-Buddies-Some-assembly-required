@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d17lqx7vdf4i"]
+[gd_scene load_steps=10 format=3 uid="uid://d17lqx7vdf4i"]
 
 [ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="1_0c7t5"]
 [ext_resource type="PackedScene" uid="uid://dvwts518nrsrn" path="res://Scenes/player.tscn" id="1_hgngq"]
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_ncg0p"]
 [ext_resource type="PackedScene" uid="uid://de222kqx464e4" path="res://Scenes/basic_bot.tscn" id="2_smqct"]
 [ext_resource type="Script" path="res://Scripts/PlayerBotManager.gd" id="3_m8qmc"]
+[ext_resource type="PackedScene" uid="uid://dpc4an48b4j5w" path="res://Scenes/mine.tscn" id="6_on5ck"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6wv0m"]
 vertices = PackedVector2Array(64, 64, -64, 64, -64, -64, 64, -64)
@@ -60,14 +61,5 @@ player_node = NodePath("../Player")
 [node name="BasicBot" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
 position = Vector2(-84, -41)
 
-[node name="BasicBot2" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot3" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot4" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
-
-[node name="BasicBot5" parent="PlayerBotManager" instance=ExtResource("2_smqct")]
-position = Vector2(-84, -41)
+[node name="Mine" parent="." instance=ExtResource("6_on5ck")]
+position = Vector2(741, -337)

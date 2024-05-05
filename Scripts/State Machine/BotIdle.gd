@@ -6,8 +6,9 @@ var target_position = Vector2.ZERO
 
 # Virtual function. Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:
-	if _event.is_action_pressed("click"):
-		state_machine.transition_to("BotMove")
+	if owner.player_controlled:
+		if _event.is_action_pressed("click"):
+			state_machine.transition_to("BotMove")
 
 # Virtual function. Corresponds to the `_process()` callback.
 func update(_delta: float) -> void:
@@ -32,5 +33,5 @@ func exit() -> void:
 
 
 func _on_navigation_agent_2d_target_reached():
-	if state_machine.state == "BotMove":
+	if state_machine.state == $"../BotMove":
 		state_machine.transition_to("BotIdle")
