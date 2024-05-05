@@ -15,15 +15,17 @@ func update(_delta: float) -> void:
 
 # Virtual function. Corresponds to the `_physics_process()` callback.
 func physics_update(_delta: float) -> void:
-	nav_agent.target_position = target.global_position
-	var next_path_position: Vector2 = nav_agent.get_next_path_position()
-	var new_velocity: Vector2 = owner.global_position.direction_to(next_path_position)
-	owner.velocity = new_velocity * owner.movement_speed
-	owner.move_and_slide()
-	
 	if melle_range:
 		if $MelleTimer.is_stopped():
 			$MelleTimer.start(owner.attack_speed)
+	else:
+		nav_agent.target_position = target.global_position
+		var next_path_position: Vector2 = nav_agent.get_next_path_position()
+		var new_velocity: Vector2 = owner.global_position.direction_to(next_path_position)
+		owner.velocity = new_velocity * owner.movement_speed
+		owner.move_and_slide()
+	
+
 
 
 # Virtual function. Called by the state machine upon changing the active state. The `msg` parameter
@@ -40,9 +42,10 @@ func exit() -> void:
 
 
 func _on_area_2d_body_entered(body):
-	if body.controller != owner.controller:
-		enemy_bots.append(body)
-		state_machine.transition_to("MelleAttack")
+	if not body.name.contains("Mine"):
+		if body.controller != owner.controller:
+			enemy_bots.append(body)
+			state_machine.transition_to("MelleAttack")
 
 func _on_area_2d_body_exited(body):
 	if body in enemy_bots:

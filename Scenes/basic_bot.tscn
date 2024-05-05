@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://de222kqx464e4"]
+[gd_scene load_steps=12 format=3 uid="uid://de222kqx464e4"]
 
 [ext_resource type="Script" path="res://Scripts/BasicBot.gd" id="1_hwlhr"]
 [ext_resource type="Texture2D" uid="uid://d2u1tsw3crd5j" path="res://Sprites/green_button00.png" id="2_1b7u3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/State Machine/BotIdle.gd" id="4_xyph5"]
 [ext_resource type="Script" path="res://Scripts/State Machine/BotMove.gd" id="5_iexhn"]
 [ext_resource type="Script" path="res://Scripts/State Machine/MelleAttack.gd" id="6_33bmy"]
+[ext_resource type="Script" path="res://Scripts/State Machine/BotMine.gd" id="9_ar2jr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ko81"]
 size = Vector2(32, 32)
@@ -59,9 +60,12 @@ script = ExtResource("6_33bmy")
 
 [node name="MelleTimer" type="Timer" parent="State Machine/MelleAttack"]
 
+[node name="BotMine" type="Node" parent="State Machine"]
+script = ExtResource("9_ar2jr")
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 50.0
-target_desired_distance = 100.0
+target_desired_distance = 50.0
 debug_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -77,4 +81,6 @@ shape = SubResource("CircleShape2D_87vcl")
 [connection signal="target_reached" from="NavigationAgent2D" to="State Machine/BotIdle" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="target_reached" from="NavigationAgent2D" to="State Machine/MelleAttack" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="body_entered" from="Area2D" to="State Machine/MelleAttack" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D" to="State Machine/BotMine" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="State Machine/MelleAttack" method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Area2D" to="State Machine/BotMine" method="_on_area_2d_body_exited"]
