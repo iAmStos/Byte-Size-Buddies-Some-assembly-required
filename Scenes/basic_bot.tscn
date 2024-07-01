@@ -2,22 +2,20 @@
 
 [ext_resource type="Script" path="res://Scripts/BasicBot.gd" id="1_hwlhr"]
 [ext_resource type="Texture2D" uid="uid://d2u1tsw3crd5j" path="res://Sprites/green_button00.png" id="2_1b7u3"]
-[ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="2_03byx"]
 [ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_gyekh"]
 [ext_resource type="Texture2D" uid="uid://bub7pnsf7l7ge" path="res://Sprites/red_button00.png" id="3_lcb2b"]
+[ext_resource type="Texture2D" uid="uid://cuaeyx33kauhg" path="res://Sprites/Mining Robot.png" id="4_l8o8q"]
 [ext_resource type="Script" path="res://Scripts/State Machine/BotIdle.gd" id="4_xyph5"]
 [ext_resource type="Script" path="res://Scripts/State Machine/BotMove.gd" id="5_iexhn"]
 [ext_resource type="Script" path="res://Scripts/State Machine/MelleAttack.gd" id="6_33bmy"]
 [ext_resource type="Script" path="res://Scripts/State Machine/BotMine.gd" id="9_ar2jr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ko81"]
-size = Vector2(32, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_bthpy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_87vcl"]
 radius = 239.033
 
 [node name="BasicBot" type="CharacterBody2D"]
-z_index = 4
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 5
@@ -34,12 +32,11 @@ texture_under = ExtResource("3_lcb2b")
 texture_progress = ExtResource("2_1b7u3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-y_sort_enabled = true
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_03byx")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l8o8q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3ko81")
+shape = SubResource("CircleShape2D_bthpy")
 
 [node name="State Machine" type="Node" parent="."]
 script = ExtResource("3_gyekh")
@@ -52,7 +49,7 @@ script = ExtResource("4_xyph5")
 script = ExtResource("5_iexhn")
 
 [node name="Timer" type="Timer" parent="State Machine/BotMove"]
-wait_time = 0.2
+wait_time = 0.05
 one_shot = true
 
 [node name="MelleAttack" type="Node" parent="State Machine"]
@@ -63,9 +60,15 @@ script = ExtResource("6_33bmy")
 [node name="BotMine" type="Node" parent="State Machine"]
 script = ExtResource("9_ar2jr")
 
+[node name="MineTimer" type="Timer" parent="State Machine/BotMine"]
+wait_time = 2.0
+one_shot = true
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 50.0
 target_desired_distance = 50.0
+avoidance_enabled = true
+radius = 20.0
 debug_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -77,9 +80,11 @@ shape = SubResource("CircleShape2D_87vcl")
 
 [connection signal="timeout" from="State Machine/BotMove/Timer" to="State Machine/BotMove" method="_on_timer_timeout"]
 [connection signal="timeout" from="State Machine/MelleAttack/MelleTimer" to="State Machine/MelleAttack" method="_on_melle_timer_timeout"]
+[connection signal="timeout" from="State Machine/BotMine/MineTimer" to="State Machine/BotMine" method="_on_mine_timer_timeout"]
 [connection signal="path_changed" from="NavigationAgent2D" to="State Machine/MelleAttack" method="_on_navigation_agent_2d_path_changed"]
-[connection signal="target_reached" from="NavigationAgent2D" to="State Machine/BotIdle" method="_on_navigation_agent_2d_target_reached"]
+[connection signal="target_reached" from="NavigationAgent2D" to="State Machine/BotMove" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="target_reached" from="NavigationAgent2D" to="State Machine/MelleAttack" method="_on_navigation_agent_2d_target_reached"]
+[connection signal="target_reached" from="NavigationAgent2D" to="State Machine/BotMine" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="body_entered" from="Area2D" to="State Machine/MelleAttack" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2D" to="State Machine/BotMine" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="State Machine/MelleAttack" method="_on_area_2d_body_exited"]

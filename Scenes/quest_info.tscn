@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b10ni37x1hhuq"]
+
+[node name="QuestInfo" type="HBoxContainer"]
+
+[node name="QuestText" type="Label" parent="."]
+layout_mode = 2
+
+[node name="Number" type="Label" parent="."]
+layout_mode = 2

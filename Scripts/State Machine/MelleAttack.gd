@@ -52,18 +52,14 @@ func _on_area_2d_body_exited(body):
 		enemy_bots.erase(body)
 	
 	if enemy_bots.is_empty():
-		state_machine.transition_to("BotMove")
+		state_machine.transition_to("BotIdle")
 	elif owner.health > 0:
 		find_nearest()
 
 func find_nearest():
-	if enemy_bots.is_empty():
-		pass
 	var shortest_distance = INF
 	var temp_nearest_bot
 	for bot in enemy_bots:
-		if bot.health <= 0 or owner.health <= 0:
-			pass
 		if owner.position.distance_to(bot.position) < shortest_distance:
 			shortest_distance = owner.position.distance_to(bot.position)
 			temp_nearest_bot = bot
@@ -71,7 +67,8 @@ func find_nearest():
 
 
 func _on_navigation_agent_2d_target_reached():
-	melle_range = true
+	if state_machine.state == self:
+		melle_range = true
 
 
 func _on_navigation_agent_2d_path_changed():
@@ -81,5 +78,3 @@ func _on_navigation_agent_2d_path_changed():
 func _on_melle_timer_timeout():
 	if target != null:
 		target.take_damage(owner.melle_damage)
-		if not enemy_bots.is_empty():
-			find_nearest()

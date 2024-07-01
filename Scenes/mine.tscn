@@ -3,13 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/MineManager.gd" id="1_x1l0x"]
 [ext_resource type="Texture2D" uid="uid://yfq7cygu3aqu" path="res://Sprites/icon.svg" id="2_jhxnf"]
 [ext_resource type="Script" path="res://Scripts/BotManager.gd" id="3_gmkw6"]
-[ext_resource type="PackedScene" uid="uid://de222kqx464e4" path="res://Scenes/basic_bot.tscn" id="3_xdn7k"]
+[ext_resource type="PackedScene" uid="uid://de222kqx464e4" path="res://Scenes/basic_bot.tscn" id="4_d6xqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dovq"]
 size = Vector2(32, 32)
 
 [node name="Mine" type="StaticBody2D"]
 script = ExtResource("1_x1l0x")
+basic_bot_scene = ExtResource("4_d6xqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7dovq")
@@ -23,14 +24,22 @@ texture = ExtResource("2_jhxnf")
 [node name="BotManager" type="Node2D" parent="."]
 script = ExtResource("3_gmkw6")
 
-[node name="BasicBot" parent="BotManager" instance=ExtResource("3_xdn7k")]
+[node name="BasicBot" parent="BotManager" instance=ExtResource("4_d6xqm")]
+position = Vector2(-36, -23)
 
-[node name="BasicBot2" parent="BotManager" instance=ExtResource("3_xdn7k")]
+[node name="BasicBot2" parent="BotManager" instance=ExtResource("4_d6xqm")]
+position = Vector2(45, -37)
 
-[node name="BasicBot3" parent="BotManager" instance=ExtResource("3_xdn7k")]
-
-[node name="BasicBot4" parent="BotManager" instance=ExtResource("3_xdn7k")]
-
-[node name="BasicBot5" parent="BotManager" instance=ExtResource("3_xdn7k")]
+[node name="BasicBot3" parent="BotManager" instance=ExtResource("4_d6xqm")]
+position = Vector2(22, 79)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="SpawnBotTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="SpawnBotTimer" to="." method="_on_spawn_bot_timer_timeout"]
