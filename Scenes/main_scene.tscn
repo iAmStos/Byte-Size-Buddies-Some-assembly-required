@@ -434,7 +434,7 @@ position = Vector2(-1026, 274)
 position = Vector2(3190, 2562)
 
 [node name="Mine4" parent="." instance=ExtResource("6_on5ck")]
-position = Vector2(2514, 1282)
+position = Vector2(5185, 1292)
 
 [node name="Mine5" parent="." instance=ExtResource("6_on5ck")]
 position = Vector2(1174, 3519)
