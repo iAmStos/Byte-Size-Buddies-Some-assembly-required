@@ -1,7 +1,8 @@
 extends CanvasLayer
 
-@onready var scarp_number = $VBoxContainer/Scrap/ScrapNumber
-@onready var quests = $VBoxContainer/Quests
+@onready var scarp_number = $Container/Scrap/ScrapNumber
+@onready var quests = $Container/Quests
+@onready var win_label = $WinLabel
 
 @export var quest_info_scene : PackedScene
 
@@ -17,3 +18,6 @@ func update_quests(quest_dictionary):
 		new_quest_node.get_child(0).text = each
 		new_quest_node.get_child(1).text = str(quest_dictionary[each])
 		quests.add_child(new_quest_node)
+
+func win_screen():
+	win_label.visible = true

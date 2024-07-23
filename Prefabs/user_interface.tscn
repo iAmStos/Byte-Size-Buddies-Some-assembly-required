@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bttbjrgyptw0b"]
+[gd_scene load_steps=3 format=3 uid="uid://bttbjrgyptw0b"]
 
 [ext_resource type="Script" path="res://Scripts/UserInterfaceScript.gd" id="1_cy261"]
+[ext_resource type="PackedScene" uid="uid://b10ni37x1hhuq" path="res://Scenes/quest_info.tscn" id="2_e35k1"]
 
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_cy261")
+quest_info_scene = ExtResource("2_e35k1")
 
 [node name="Container" type="VBoxContainer" parent="."]
 anchors_preset = 1
@@ -24,7 +26,7 @@ text = "Scrap"
 layout_mode = 2
 text = "Scrap"
 
-[node name="Quests" type="HBoxContainer" parent="Container"]
+[node name="Quests" type="VBoxContainer" parent="Container"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Container/Quests"]
@@ -44,3 +46,19 @@ offset_top = -40.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="WinLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -11.5
+offset_right = 35.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "You won!"

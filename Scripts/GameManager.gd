@@ -7,8 +7,8 @@ extends Node
 
 var quests = {
 	"mines": 4,
-	"enemy":20,
-	"scrap":200
+	"enemy": 20,
+	"scrap": 200
 }
 
 @onready var player_bot_manager_node = get_node("PlayerBotManager")
@@ -38,6 +38,7 @@ func buy(bot_number):
 func add_scrap(mined_scrap):
 	scrap += mined_scrap
 	user_interface.update_scrap(scrap)
+	update_objectives("scrap", mined_scrap)
 
 func remove_scrap(scrap_cost):
 	scrap -= scrap_cost
@@ -49,3 +50,8 @@ func update_objectives(objective_string, number):
 		if quests[objective_string] <= 0:
 			quests.erase(objective_string)
 		user_interface.update_quests(quests)
+	if quests.is_empty():
+		win()
+		
+func win():
+	user_interface.win_screen()
