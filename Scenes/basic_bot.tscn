@@ -23,10 +23,11 @@ script = ExtResource("1_hwlhr")
 movement_speed = 250
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-offset_left = -18.0
-offset_top = -28.0
-offset_right = 172.0
-offset_bottom = 21.0
+z_index = 1
+offset_left = -17.0
+offset_top = -43.0
+offset_right = 173.0
+offset_bottom = 6.0
 scale = Vector2(0.2, 0.2)
 texture_under = ExtResource("3_lcb2b")
 texture_progress = ExtResource("2_1b7u3")

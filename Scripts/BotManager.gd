@@ -16,3 +16,5 @@ func refresh():
 	mine_bots = get_children()
 	for bot in mine_bots:
 		bot.controller = "../.."
+		if bot.player_controlled == false:
+			bot.update_sprite(false)

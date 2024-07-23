@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 class_name  Bot
 
-@export var health : int = 3
+@export var health : int = 10
 @export var movement_speed : int = 200
-@export var melle_damage : int = 1
+@export var melle_damage : int = 3
 @export var attack_speed : float = 1
 @export var controller : NodePath = ""
 @export var cost : int = 1
@@ -35,3 +35,6 @@ func die():
 	$Area2D.monitoring = false
 	call_deferred("queue_free")
 
+func update_sprite(playerControlled):
+	if playerControlled == false:
+		$Sprite2D.texture = load("res://Sprites/Mining Robot Evil.png")
